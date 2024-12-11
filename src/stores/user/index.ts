@@ -24,7 +24,7 @@ const useUserStore = defineStore('user', {
         const token = loginRes.data as UserToken
         localStorage.setItem('token', JSON.stringify(token.access_token))
         return true
-      } catch (e) {
+      } catch {
         return false
       }
     },
@@ -36,7 +36,7 @@ const useUserStore = defineStore('user', {
         const profileRes = await user.profile()
         this.setInfo(profileRes.data as User)
         return true
-      } catch (e) {
+      } catch {
         return false
       }
     },
@@ -44,11 +44,11 @@ const useUserStore = defineStore('user', {
       localStorage.removeItem('token')
       this.$reset()
     },
-    async register(registerForm: RegisterForm) {
+    async register(registerForm: RegisterForm, requestId: string) {
       try {
-        await user.register(registerForm)
+        await user.register(registerForm, requestId)
         return true
-      } catch (e) {
+      } catch {
         return false
       }
     },

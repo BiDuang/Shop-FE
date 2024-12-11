@@ -3,6 +3,12 @@ export interface UserToken {
   token_type: string
 }
 
+export enum Permission {
+  ADMIN = 2,
+  USER = 1,
+  GUEST = 0,
+}
+
 export interface LoginForm {
   username: string
   password: string
@@ -10,9 +16,9 @@ export interface LoginForm {
 }
 
 export interface RegisterForm {
+  email: string
   username: string
   password: string
-  email: string
   captcha: string
   [key: string]: string
 }
@@ -24,16 +30,40 @@ export interface RecoverForm {
   [key: string]: string
 }
 
+export interface UpdateProfile {
+  password: string | null
+  permission: Permission | null
+  [key: string]: string | Permission | null
+}
+
+export interface UserAddress {
+  aid: string
+  uid: string
+  name: string
+  phone: string
+  address: string
+  is_default: boolean
+  [key: string]: string | boolean
+}
+
+export interface AddressRequest {
+  name: string
+  phone: string
+  address: string
+  is_default: boolean
+  [key: string]: string | boolean
+}
+
 export interface User {
   uid: string
   username: string
   email: string
-  permission: string
+  permission: Permission
 }
 
 export interface UserState {
   uid?: string
   username?: string
   email?: string
-  permission?: string
+  permission?: Permission
 }

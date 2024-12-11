@@ -35,29 +35,49 @@ requests.interceptors.response.use(
 const get = <T = null>(
   url: string,
   params?: Record<string, unknown>,
+  headers?: AxiosHeaders,
   config?: AxiosRequestConfig,
 ): Promise<ApiResponse<T>> => {
-  return requests.get(url, { params, ...config })
+  return requests.get(url, { params, headers, ...config })
 }
 
 const post = <T = null>(
   url: string,
   data?: Record<string, unknown>,
+  headers?: AxiosHeaders,
   config?: AxiosRequestConfig,
 ): Promise<ApiResponse<T>> => {
-  return requests.post(url, data, { ...config })
+  return requests.post(url, data, { headers, ...config })
 }
 
 const postForm = <T = null>(
   url: string,
   data?: Record<string, unknown>,
+  headers?: AxiosHeaders,
   config?: AxiosRequestConfig,
 ): Promise<ApiResponse<T>> => {
-  let form = new FormData()
-  for (let key in data) {
+  const form = new FormData()
+  for (const key in data) {
     form.append(key, String(data[key]))
   }
-  return requests.post(url, data, { ...config })
+  return requests.post(url, data, { headers, ...config })
 }
 
-export { get, post, postForm }
+const put = <T = null>(
+  url: string,
+  data?: Record<string, unknown>,
+  headers?: AxiosHeaders,
+  config?: AxiosRequestConfig,
+): Promise<ApiResponse<T>> => {
+  return requests.put(url, data, { headers, ...config })
+}
+
+const del = <T = null>(
+  url: string,
+  headers?: AxiosHeaders,
+  config?: AxiosRequestConfig,
+): Promise<ApiResponse<T>> => {
+  return requests.delete(url, { headers, ...config })
+}
+
+export { get, post, postForm, put, del }

@@ -1,5 +1,6 @@
 import axios, { AxiosHeaders, type AxiosRequestConfig } from 'axios'
 import type { ApiResponse } from '@/models/request'
+import { message } from 'ant-design-vue'
 const ServerURL = 'http://localhost:8123'
 
 const requests = axios.create({
@@ -24,10 +25,14 @@ requests.interceptors.request.use(
 
 requests.interceptors.response.use(
   (response) => {
-    return response
+    return response.data
   },
   (error) => {
-    console.error('Response error:', error)
+    if (error.response.data.message) {
+      message.error(error.response.data.message)
+    } else {
+      message.error('Server error')
+    }
     return Promise.reject(error)
   },
 )
@@ -60,7 +65,7 @@ const postForm = <T = null>(
   for (const key in data) {
     form.append(key, String(data[key]))
   }
-  return requests.post(url, data, { headers, ...config })
+  return requests.post(url, form, { headers, ...config })
 }
 
 const put = <T = null>(

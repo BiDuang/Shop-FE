@@ -23,9 +23,26 @@ export interface RegisterForm {
   [key: string]: string
 }
 
+export interface RegisterModel {
+  email: string
+  username: string
+  password: string
+  confirm_password: string
+  captcha: string
+  [key: string]: string
+}
+
 export interface RecoverForm {
   email: string
   password: string
+  captcha: string
+  [key: string]: string
+}
+
+export interface RecoverModel {
+  email: string
+  password: string
+  confirm_password: string
   captcha: string
   [key: string]: string
 }

@@ -1,6 +1,13 @@
 import { defineStore } from 'pinia'
 import user from '@/apis/user'
-import type { LoginForm, UserState, User, UserToken, RegisterForm } from '@/models/user'
+import type {
+  LoginForm,
+  UserState,
+  User,
+  UserToken,
+  RegisterForm,
+  RecoverForm,
+} from '@/models/user'
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
@@ -18,6 +25,7 @@ const useUserStore = defineStore('user', {
     setInfo(partial: Partial<UserState>) {
       this.$patch(partial)
     },
+
     async login(loginForm: LoginForm) {
       try {
         const loginRes = await user.login(loginForm)
@@ -28,28 +36,58 @@ const useUserStore = defineStore('user', {
         return false
       }
     },
+
     async update() {
       if (!localStorage.getItem('token')) {
         return false
       }
       try {
-        const profileRes = await user.profile()
+        const profileRes = await user.getProfile()
         this.setInfo(profileRes.data as User)
         return true
       } catch {
         return false
       }
     },
+
     async logout() {
       localStorage.removeItem('token')
       this.$reset()
     },
+
     async register(registerForm: RegisterForm, requestId: string) {
       try {
         await user.register(registerForm, requestId)
         return true
       } catch {
         return false
+      }
+    },
+
+    async recover(recoverForm: RecoverForm, requestId: string) {
+      try {
+        const res = await user.recover(recoverForm, requestId)
+        return res.data!
+      } catch {
+        return null
+      }
+    },
+
+    async registerCaptcha(email: string) {
+      try {
+        const res = await user.registerCaptcha(email)
+        return res.data!
+      } catch {
+        return null
+      }
+    },
+
+    async recoverCaptcha(email: string) {
+      try {
+        const res = await user.recoverCaptcha(email)
+        return res.data!
+      } catch {
+        return null
       }
     },
   },

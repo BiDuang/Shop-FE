@@ -1,7 +1,8 @@
 import axios, { AxiosHeaders, type AxiosRequestConfig } from 'axios'
 import type { ApiResponse } from '@/models/request'
 import { message } from 'ant-design-vue'
-const ServerURL = 'http://localhost:8123'
+
+export const ServerURL = 'http://localhost:8123'
 
 const requests = axios.create({
   baseURL: ServerURL,
@@ -11,7 +12,7 @@ const requests = axios.create({
 
 requests.interceptors.request.use(
   (request) => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.token) {
       request.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
     }
 

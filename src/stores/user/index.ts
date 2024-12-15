@@ -26,11 +26,15 @@ const useUserStore = defineStore('user', {
       this.$patch(partial)
     },
 
+    isLogined() {
+      return this.uid !== undefined
+    },
+
     async login(loginForm: LoginForm) {
       try {
         const loginRes = await user.login(loginForm)
         const token = loginRes.data as UserToken
-        localStorage.setItem('token', JSON.stringify(token.access_token))
+        localStorage.setItem('token', token.access_token)
         return true
       } catch {
         return false

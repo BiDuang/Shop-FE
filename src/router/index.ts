@@ -18,6 +18,18 @@ const router = createRouter({
       name: 'recover',
       component: () => import('@/views/user/RecoverView.vue'),
     },
+    {
+      path: '/',
+      name: 'layout',
+      component: () => import('@/views/LayoutView.vue'),
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('@/views/MainView.vue'),
+        },
+      ],
+    },
   ],
 })
 

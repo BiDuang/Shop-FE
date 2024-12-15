@@ -1,7 +1,7 @@
 export interface ApiResponse<T = null> {
   status_code: number
-  message?: string
-  data?: T
+  message: string | null
+  data: T | null
 }
 
 export enum CaptchaPurpose {

@@ -67,7 +67,7 @@ const recoverCaptcha = async (email: string): Promise<ApiResponse<string>> => {
 }
 
 const getProfile = async (): Promise<ApiResponse<User>> => {
-  const response = await get<User>('/profile')
+  const response = await get<User>('/user/profile')
   if (response.status_code != 200) {
     message.error(response.message)
     return Promise.reject(response)

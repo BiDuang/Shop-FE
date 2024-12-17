@@ -23,6 +23,7 @@
 
 <script lang="ts" setup>
 import type { BaseCommodity } from "@/models/commodity";
+import CommodityCard from "@/components/CommodityCard.vue";
 import { ServerURL } from "@/apis";
 
 

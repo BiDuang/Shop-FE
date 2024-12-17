@@ -1,7 +1,6 @@
 <template>
   <main class="main" :style="{ width: $route.meta.expand ? '100%' : '1200px' }">
     <div class="content">
-      <div class="content-title">首页</div>
       <a-spin tip="正在加载，请稍候..." :spinning="isLoading" class="absoulte-spin" />
       <CommodityList :item-list="itemList" />
     </div>

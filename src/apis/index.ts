@@ -2,7 +2,7 @@ import axios, { AxiosHeaders, type AxiosRequestConfig } from 'axios'
 import type { ApiResponse } from '@/models/request'
 import { message } from 'ant-design-vue'
 
-export const ServerURL = 'http://localhost:8123'
+export const ServerURL = 'http://10.169.6.12:8123'
 
 const requests = axios.create({
   baseURL: ServerURL,
